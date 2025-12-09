@@ -1,0 +1,7 @@
+return [[
+Your new Compy computer will open up a whole new world.
+It can entertain and educate the whole family. To get
+the best service from this complex tool, it is worth
+spending a little time getting acquainted with the many
+functions and facilities available.
+]]
