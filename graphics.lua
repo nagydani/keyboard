@@ -186,6 +186,7 @@ keycap = {
     
   end
 }
+
 NUM_SYM = {
   "!",
   "@",
@@ -232,8 +233,7 @@ function double2(x, y, name)
   gfx.setFont(FONT3)
   gfx.print(UPPER[name], x + SCALE, y + 2 * SCALE)
   gfx.print(LOWER[name], x + SCALE, y + (3 + FONT3_H) * SCALE)
-
-    end
+end
 function letter(x, y, name)
   gfx.setFont(FONT1)
   gfx.print(string.upper(name), x + 2 * SCALE, y + SCALE)
@@ -253,7 +253,7 @@ key("escape", "Esc")
 key("numlk", "Numlk")
 key("delete", "Delete")
 key("backspace", utf8.char(10229))
-key("tab", "Tab "..utf8.char(8633))
+key("tab", "Tab " .. utf8.char(8633))
 key("enter", "Enter")
 key("lshift", utf8.char(8679) .. "Shift")
 key("rshift", "Shift")
@@ -267,7 +267,7 @@ key("left", utf8.char(8592))
 key("down", utf8.char(8595))
 key("right", utf8.char(8594))
 for i = 1, 12 do
-  key("f"..i, "F"..i)
+  key("f" .. i, "F" .. i)
 end
 function key2(name, label1, label2)
   UPPER[name] = label1
@@ -276,11 +276,13 @@ function key2(name, label1, label2)
 end
 key2("capslock", "Caps", "Lock")
 key2("pause", "Pause", "Break")
+
 function keycap.fn(x, y, name)
   gfx.setColor(AUX_COLOR)
   single(x, y, name)
 end
 keycap.zzz = keycap.fn
+
 key_bg = { }
 function draw_key(x, y, name)
   local bg = key_bg[name]
@@ -297,6 +299,7 @@ function draw_key(x, y, name)
     letter(x, y, name)
   end
 end
+
 gap = { }
 for i, row in pairs(layout) do
   local sum = 0
@@ -305,6 +308,7 @@ for i, row in pairs(layout) do
   end
   gap[i] = (WIDTH_PX - sum) / (#row - 1)
 end
+
 function draw_row(x, y, i)
   local row, g = layout[i], gap[i]
   for j = 1, #row do
