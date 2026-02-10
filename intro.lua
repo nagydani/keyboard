@@ -2,7 +2,7 @@ require "graphics"
 require "model"
 
 -- text to type
-text = require("intro_txt")
+text = readfile("intro.txt")
 
 -- interval between keystrikes in seconds
 DT = 0.1
@@ -50,4 +50,8 @@ function love.draw()
     gfx.print(text:sub(1, caret), 16, 16)
   end
   draw_keyboard(30, 200)
+end
+
+function love.keypressed(key, scancode, isrepeat)
+  love.event.quit()
 end
