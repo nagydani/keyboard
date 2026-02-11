@@ -17,41 +17,56 @@ S = {
 
 sfx = compy.audio
 
+function setchar(c)
+  key_bg = { }
+  S.char = c
+  if c == "\n" then
+    sfx.ping()
+    S.t = S.t + DT_N
+  else
+    sfx.knock()
+    S.t = S.t + DT
+  end
+end
+
 function love.update(dt)
   S.t = S.t - dt
   while S.t < 0 do
-    if S.caret >= #text then
-      return
+    if #text <= S.caret then
+      S.char = nil
+      return 
     end
     S.caret = S.caret + 1
-    local c = text:sub(S.caret, S.caret)
-    if c == "\n" then
-      sfx.ping()
-      S.t = S.t + DT_N
-    else
-      sfx.knock()
-      S.t = S.t + DT
-    end
+    setchar(text:sub(S.caret, S.caret))
   end
 end
 
 function love.draw()
   gfx.clear(Color[Color.white])
-  key_bg = { }
-  local caret = S.caret
-  if 0 < caret then
-    local c = text:sub(caret, caret)
+  local c = S.char
+  if c then
     local m = modifier[c]
     if m then
       key_bg[m] = Color[Color.blue]
     end
     key_bg[unshift[c]] = Color[Color.blue + Color.bright]
-    gfx.setColor(Color[Color.black])
-    gfx.print(text:sub(1, caret), 16, 16)
   end
+  gfx.setColor(Color[Color.black])
+  gfx.print(text:sub(1, S.caret), 16, 16)
   draw_keyboard(30, 200)
+end
+function keypress()
+  key_bg = { }
+  dofile("instructions1.lua")
 end
 
 function love.keypressed(key, scancode, isrepeat)
-  love.event.quit()
+  if keypress then
+    keypress(key, scancode, isrepeat)
+  end
+end
+function love.keyreleased(key, scancode)
+  if keyrelease then
+    keyrelease(key, scancode)
+  end
 end
