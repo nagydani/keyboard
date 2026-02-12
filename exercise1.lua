@@ -13,7 +13,11 @@ S.char = nil
 
 function highlight(key)
   S.highlight = key
-  key_bg = { [key] = Color[Color.blue + Color.bright] }
+  if key then
+    key_bg = { [key] = Color[Color.blue + Color.bright] }
+  else
+    key_bg = { }
+  end
 end
 
 function chars(s)
@@ -28,35 +32,39 @@ S.pools = {
   chars("1234567890"),
   chars("abcdefghijklmnopqrstuvwxyz")
 }
-S.pool = 0
+S.pool = 1
 
-function pick()
-  local pool = S.pools[S.pool]
+function pick(pool)
   if next(pool) == nil then
     return nil
   end
-  return table.remove(pool, math.random(#pool))
+  local i = math.random(#pool)
+  pool[i], pool[#pool] = pool[#pool], pool[i]
+  return table.remove(pool)
 end
 
-function next_pool()
-  local p = S.pool + 1
-  S.pool = p
-  return pick(p)
+function next_key()
+  local pool = S.pools[S.pool]
+  if pool == nil then
+    return nil
+  end
+  local r = pick(pool)
+  if r then
+    return r
+  end
+  S.pool = S.pool + 1
+  return next_key()
 end
-highlight(next_pool())
+highlight(next_key())
 
 function keypress(k)
   if k == S.highlight then
-    local p = pick()
-    if not p then
-      p = next_pool()
-    end
-    if not p then
-      stop()
+    local n = next_key()
+    highlight(n)
+    sfx.correct()
+    if not n then
       love.event.quit()
     end
-    highlight(p)
-    sfx.correct()
   else
     key_bg[k] = Color[Color.red]
     sfx.wrong()
