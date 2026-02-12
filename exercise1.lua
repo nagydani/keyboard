@@ -38,7 +38,7 @@ table.insert(S.pools, {
   "delete",
   "backspace",
   "tab",
-  -- "enter",
+  "return",
   "space"
 })
 table.insert(S.pools, {

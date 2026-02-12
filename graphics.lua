@@ -102,7 +102,7 @@ layout[4] = {
   "k",
   "l",
   ";",
-  "enter"
+  "return"
 }
 layout[5] = {
   "lshift",
@@ -169,7 +169,7 @@ for _, v in pairs({
 end
 for _, v in pairs({
   "capslock",
-  "enter"
+  "return"
 }) do
   width[v] = WIDE_W * SCALE
 end
@@ -254,7 +254,7 @@ key("numlk", "Numlk")
 key("delete", "Delete")
 key("backspace", utf8.char(10229))
 key("tab", "Tab " .. utf8.char(8633))
-key("enter", "Enter")
+key("return", "Enter")
 key("lshift", utf8.char(8679) .. "Shift")
 key("rshift", "Shift")
 key("lctrl", "Ctrl")

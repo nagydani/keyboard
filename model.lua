@@ -23,5 +23,5 @@ AUX_KEYS = "`-=\\;,./[]'"
 for c in AUX_KEYS:gmatch(".") do
   unshift[UPPER[c]] = c
 end
-unshift["\n"] = "enter"
+unshift["\n"] = "return"
 unshift[" "] = "space"
