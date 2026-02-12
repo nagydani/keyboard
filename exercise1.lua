@@ -30,8 +30,30 @@ end
 
 S.pools = {
   chars("1234567890"),
-  chars("abcdefghijklmnopqrstuvwxyz")
+  chars("abcdefghijklmnopqrstuvwxyz"),
+  chars("`-=;,./[]")
 }
+table.insert(S.pools, {
+  "escape",
+  "delete",
+  "backspace",
+  "tab",
+  -- "enter",
+  "space"
+})
+table.insert(S.pools, {
+  "up",
+  "left",
+  "right",
+  "down"
+})
+table.insert(S.pools, {
+  "lshift",
+  "rshift",
+  "lctrl",
+  "lalt"
+})
+
 S.pool = 1
 
 function pick(pool)
