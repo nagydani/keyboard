@@ -35,7 +35,7 @@ end
 S.pools = {
   chars("1234567890"),
   chars("abcdefghijklmnopqrstuvwxyz"),
-  chars("`-=\\;,./[]")
+  chars("`-=\\;,./[]'")
 }
 table.insert(S.pools, {
   "escape",
@@ -92,7 +92,7 @@ function keypress(k)
     highlight(n)
     sfx.correct()
     if not n then
-      love.event.quit()
+      dofile("instructions2.lua")
     end
   else
     key_bg[k] = Color[Color.red]

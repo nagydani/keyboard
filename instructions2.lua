@@ -7,5 +7,5 @@ text = readfile("exercise2.txt")
 love.update = typewriter
 
 function keypress(k)
-  love.action.quit()
+  love.event.quit()
 end
