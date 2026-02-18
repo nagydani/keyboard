@@ -29,7 +29,7 @@ function setchar(c)
   end
 end
 
-function love.update(dt)
+function typewriter(dt)
   S.t = S.t - dt
   while S.t < 0 do
     if #text <= S.caret then
@@ -40,6 +40,8 @@ function love.update(dt)
     setchar(text:sub(S.caret, S.caret))
   end
 end
+
+love.update = typewriter
 
 function love.draw()
   gfx.clear(Color[Color.white])

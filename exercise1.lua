@@ -2,6 +2,12 @@ function love.update(dt)
   
 end
 
+CORRECT_KEY = {
+  0,
+  0.25,
+  0
+}
+
 -- Replace the displayed text immediately
 function showtext(t)
   S.caret = #t
@@ -14,9 +20,7 @@ S.char = nil
 function highlight(key)
   S.highlight = key
   if key then
-    key_bg = { [key] = Color[Color.blue + Color.bright] }
-  else
-    key_bg = { }
+    key_bg[key] = Color[Color.blue + Color.bright]
   end
 end
 
@@ -31,7 +35,7 @@ end
 S.pools = {
   chars("1234567890"),
   chars("abcdefghijklmnopqrstuvwxyz"),
-  chars("`-=;,./[]")
+  chars("`-=\\;,./[]")
 }
 table.insert(S.pools, {
   "escape",
@@ -39,7 +43,8 @@ table.insert(S.pools, {
   "backspace",
   "tab",
   "return",
-  "space"
+  "space",
+  "menu"
 })
 table.insert(S.pools, {
   "up",
@@ -77,10 +82,12 @@ function next_key()
   S.pool = S.pool + 1
   return next_key()
 end
+key_bg = { }
 highlight(next_key())
 
 function keypress(k)
   if k == S.highlight then
+    key_bg[k] = CORRECT_KEY
     local n = next_key()
     highlight(n)
     sfx.correct()
